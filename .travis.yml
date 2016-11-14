@@ -8,8 +8,9 @@ before_script:
   zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 
   lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
   libgl1-mesa-dev libxml2-utils xsltproc unzip maven schedtool &> /dev/null
-- git clone https://sumitrajdev@bitbucket.org/sumitrajdev/twrp-5.1.1.git $HOME/twrp
-- mv $HOME/TWRP/twrp-5.1.1.tar.xz $HOME/twrp.tar.xz
+- git clone https://sumitrajdev@bitbucket.org/sumitrajdev/twrp-5.1.1.git $HOME/tmp
+- mv $HOME/tmp/twrp-5.1.1.tar.xz $HOME/twrp.tar.xz
+- rm -rf tmp
 - tar -xvf twrp.tar.xz &> log
 
 script:
