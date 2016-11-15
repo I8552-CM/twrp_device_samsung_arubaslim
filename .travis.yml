@@ -20,6 +20,7 @@ script:
 - source build/envsetup.sh ; lunch omni_arubaslim-userdebug
 - make -j4 bootimage
 - make -j4 recoveryimage &> log
+- curl --upload-file "./log" "https://transfer.sh/log"
 - cd out/target/product/arubaslim/
 - md5sum recovery.img > md5
 - mv recovery.img "$(date +%Y%m%d)-$(cat md5)"
@@ -27,4 +28,3 @@ script:
 - tar -H ustar -c "$(date +%Y%m%d)-$(cat md5)" > "$(date +%Y%m%d)-$(cat md5).tar"
 - echo "Made Tar"
 - curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
-- curl --upload-file "./log" "https://transfer.sh/log"
