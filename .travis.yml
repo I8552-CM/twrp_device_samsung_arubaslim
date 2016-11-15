@@ -18,7 +18,7 @@ script:
 - git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/arubaslim &> /dev/null
 - git clone https://github.com/I8552-CM/twrp_device_samsung_arubaslim.git device/samsung/arubaslim &> /dev/null
 - source build/envsetup.sh ; lunch omni_arubaslim-userdebug
-- make -j4 bootimage &> /dev/null
+- make -j4 bootimage
 - make -j4 recoveryimage &> log
 - cd out/target/product/omni_arubaslim/
 - md5sum recovery.img > md5
