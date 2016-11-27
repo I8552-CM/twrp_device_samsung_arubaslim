@@ -22,7 +22,7 @@ script:
 - source build/envsetup.sh ; lunch omni_arubaslim-userdebug
 - make -j4 bootimage
 - make -j4 recoveryimage &> log
-- mkazip_delos3geur
+- mkazip_arubaslim
 - curl --upload-file "./log" "https://transfer.sh/log"
 - cd out/target/product/arubaslim/
 - md5sum recovery.img > md5
@@ -32,4 +32,4 @@ script:
 - echo "Made Tar"
 - curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
 - echo "####Made Zip#####"
-- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-delos3geur.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-delos3geur.zip"
+- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-arubaslim.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-arubaslim.zip"
