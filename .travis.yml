@@ -19,7 +19,7 @@ script:
 - git clone https://github.com/I8552-CM/twrp_device_samsung_arubaslim.git device/samsung/arubaslim &> /dev/null
 - rm -rf bootable/recovery
 - git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery &> /dev/null
-- source build/envsetup.sh ; lunch omni_arubaslim-userdebug
+- source build/envsetup.sh ; lunch omni_arubaslim-eng
 - make -j4 bootimage
 - make -j4 recoveryimage &> log
 - mkazip_arubaslim
@@ -32,4 +32,4 @@ script:
 - echo "Made Tar"
 - curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
 - echo "####Made Zip#####"
-- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-arubaslim.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.2-UNOFFICIAL-arubaslim.zip"
+- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip"

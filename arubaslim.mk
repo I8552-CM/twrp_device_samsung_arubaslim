@@ -16,9 +16,6 @@
 $(call inherit-product, build/target/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Inherit u8833 vendor setup
-$(call inherit-product-if-exists, vendor/samsung/arubaslim/arubaslim-vendor.mk)
-
 # Path to overlay files
 DEVICE_PACKAGE_OVERLAYS += device/samsung/arubaslim/overlay
 
