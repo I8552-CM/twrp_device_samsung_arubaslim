@@ -1,34 +1,43 @@
 language: java
 jdk:
-  - openjdk7
+- openjdk7
 sudo: required
 before_script:
 - cd $HOME
-- sudo apt-get install -y lzop git-core gnupg flex bison gperf build-essential 
-  zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 
-  lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
-  libgl1-mesa-dev libxml2-utils xsltproc unzip maven schedtool &> /dev/null
-- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/6.0/twrp-6.0-20170203-no-repo.tar.xz -O $HOME/twrp.tar.xz
+- sudo apt-get install -y lzop git-core gnupg flex bison gperf build-essential zip
+  zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev
+  libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip maven
+  schedtool &> /dev/null
+- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/6.0/twrp-6.0-20170203-no-repo.tar.xz
+  -O $HOME/twrp.tar.xz
 - tar -xvf twrp.tar.xz &> log
-- mv $HOME/twrp-6.0 $HOME/twrp	
-
+- mv $HOME/twrp-6.0 $HOME/twrp
 script:
 - cd $HOME/twrp
-- git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/arubaslim &> /dev/null
-- git clone https://github.com/I8552-CM/twrp_device_samsung_arubaslim.git device/samsung/arubaslim &> /dev/null
+- git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/arubaslim
+  &> /dev/null
+- git clone https://github.com/I8552-CM/twrp_device_samsung_arubaslim.git device/samsung/arubaslim
+  &> /dev/null
 - rm -rf bootable/recovery
-- git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery &> /dev/null
+- git clone https://github.com/omnirom/android_bootable_recovery.git bootable/recovery
+  &> /dev/null
 - source build/envsetup.sh ; lunch omni_arubaslim-eng
 - make -j4 bootimage
 - make -j4 recoveryimage &> log
 - mkazip_arubaslim
-- curl --upload-file "./log" "https://transfer.sh/log"
 - cd out/target/product/arubaslim/
-- md5sum recovery.img > md5
-- mv recovery.img "$(date +%Y%m%d)-$(cat md5)"
-- curl --upload-file "./$(date +%Y%m%d)-$(cat md5)" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5)"
-- tar -H ustar -c "$(date +%Y%m%d)-$(cat md5)" > "$(date +%Y%m%d)-$(cat md5).tar"
+- tar -H ustar -c "recovery.img" > "recovery.tar"
 - echo "Made Tar"
-- curl --upload-file "./$(date +%Y%m%d)-$(cat md5).tar" "https://transfer.sh/$(date +%Y%m%d)-$(cat md5).tar"
-- echo "####Made Zip#####"
-- curl --upload-file "./twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip" "https://transfer.sh/twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip"
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: 03wI3Sbewe+PDQpck768c5PY2j04BAviJx74CtNYzOmfeDJ335wIwKvGw491egTGuDZyYWO9j6RMyTemsUVujQqi20yTa+tTabVFBcWRzrRA7FJxvsW6henWq2nb2BwwIDtR4ipL2fhoTOvhRmNfa1Hb35CfMhu3y10xwu0pIpvvDuwhwqi4m5S2ogobYiXm6YACK7W0910oZXyHlemuIX/+rUzwQ4T8IWtO/CtspbhN90mE7s6gkjnEn/BUpRj/dqpuLF3WMwOWXRHeIEvh+ECymnPAo6ImIQDP4zNZm2yWFoULz9xqIGaw6TpikIAJnRpWRJCw6L/dHHcDlLD1JyInwAeQqW6BC1N1qi0aQNvvYBjZF3z+wEsWhW8VE8o/s0mEffYFGA3lBNdj+BWAJx1WEtAN9pE8xHdvZNJSnJiVasOsxsAvzk8vTp47q/RM2QieDF2R/QzHZXat9JhVK3b9uIQZ12W15d6K5UulWo93WsYA/Bw9reA5o1jQFEEG5ZBk1g5Mz2seZfWRRBKWccMAUIcPSjfQlngMkxPMEe6X8ygjeB8atDQzyoe7SyWsx1ZUVokaKFaIO08TorVSW7Miyr3ORdBBhrp+Utd0fpv40GpNv1fP3mSUt5mH446M2HpAY3TlkUVsbcj+JImiuBqp1o8kB8aIAkJ4MRiVBpU=
+  file:
+    - recovery.tar
+    - recovery.img
+    - twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip
+  on:
+    repo: I8552-CM/twrp_device_samsung_arubaslim
+    branch: mm6.0
