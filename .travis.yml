@@ -8,10 +8,10 @@ before_script:
   zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev
   libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip maven
   schedtool &> /dev/null
-- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/6.0/twrp-6.0-20170203-no-repo.tar.xz
+- wget https://github.com/TwrpBuilder/twrp-5.1.1-source/releases/download/initial/twrp-5.1.1.tar.xz
   -O $HOME/twrp.tar.xz
 - tar -xvf twrp.tar.xz &> log
-- mv $HOME/twrp-6.0 $HOME/twrp
+
 script:
 - cd $HOME/twrp
 - git clone https://github.com/I8552-CM/android_kernel_arubaslim.git kernel/samsung/arubaslim
@@ -27,7 +27,6 @@ script:
 - mkazip_arubaslim
 - cd out/target/product/arubaslim/
 - tar -H ustar -c "recovery.img" > "recovery.tar"
-- echo "Made Tar"
 
 deploy:
   skip_cleanup: true
