@@ -36,7 +36,7 @@ deploy:
   file:
     - recovery.tar
     - recovery.img
-    - twrp-$(date +%Y%m%d)-3.0.3-UNOFFICIAL-arubaslim.zip
+    - twrp-$(date +%Y%m%d)-3.1.0-UNOFFICIAL-arubaslim.zip
   on:
     repo: I8552-CM/twrp_device_samsung_arubaslim
     branch: mm6.0
